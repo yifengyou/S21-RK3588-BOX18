@@ -1,0 +1,15 @@
+# Aliases extracted from modules themselves.
+alias pci:v000010ECd00008136sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008162sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008167sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008168sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008169sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008161sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008125sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008162sv*sd*bc*sc*i* pgdrv
+alias pci:v000010ECd00008168sv*sd*bc*sc*i* r8168
+alias pci:v000010ECd00008161sv*sd*bc*sc*i* r8168
+alias pci:v000010ECd00002502sv*sd*bc*sc*i* r8168
+alias pci:v000010ECd00002600sv*sd*bc*sc*i* r8168
+alias pci:v00001186d00004300sv00001186sd00004B10bc*sc*i* r8168
+alias pci:v000014E4d*sv*sd*bc02sc80i* bcmdhd
