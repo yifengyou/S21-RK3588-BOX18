@@ -82,8 +82,8 @@ cp ${WORKDIR}/firmware/official-android12/boot-unpack/dtb ${WORKDIR}/release/dec
 cp ${WORKDIR}/firmware/official-android12/boot-unpack/config ${WORKDIR}/release/config-5.10.66
 
 # release kernel modules
-mkdir kos
-find ${WORKDIR}/firmware/official-android12/ -name "*.ko" |xargs -i cp -a {} kos/
+mkdir -p kos/lib/modules/5.10.66/
+find ${WORKDIR}/firmware/official-android12/ -name "*.ko" |xargs -i cp -a {} kos/lib/modules/5.10.66/
 tar -zcvf ${WORKDIR}/release/kos.tar.gz kos
 
 ls -alh ${WORKDIR}/release/

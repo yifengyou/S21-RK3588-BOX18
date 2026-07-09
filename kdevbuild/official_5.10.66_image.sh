@@ -89,17 +89,13 @@ cd ${WORKDIR}
 mkdir -p official-rk3588-image
 cd official-rk3588-image
 
-wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/Image
-ls -alh Image
-md5sum Image
+wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/official-Image
+ls -alh official-Image
+md5sum official-Image
 
-wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/config-5.10.66-kdev
-ls -alh config-5.10.66-kdev
-md5sum config-5.10.66-kdev
-
-wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/System.map-5.10.66-kdev
-ls -alh System.map-5.10.66-kdev
-md5sum System.map-5.10.66-kdev
+wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/config-5.10.66
+ls -alh config-5.10.66
+md5sum config-5.10.66
 
 wget -c https://github.com/yifengyou/S21-RK3588-BOX18/releases/download/official_5.10.66_kernel/decenta_rk3588.dtb
 ls -alh decenta_rk3588.dtb
@@ -146,10 +142,9 @@ mount boot.img /mnt
 
 mkdir -p /mnt/dtb
 cp -a decenta_rk3588.dtb /mnt/dtb/
-cp -f Image /mnt/vmlinuz-5.10.66-kdev
-cp -f config-5.10.66-kdev /mnt/config-5.10.66-kdev
-cp -f System.map-5.10.66-kdev /mnt/System.map-5.10.66-kdev
-touch /mnt/initrd.img-5.10.66-kdev
+cp -f official-Image /mnt/official-Image
+cp -f config-5.10.66 /mnt/config-5.10.66
+touch /mnt/initrd.img-5.10.66
 
 cat >/mnt/extlinux.conf <<EOF
 ## /extlinux/extlinux.conf
@@ -167,15 +162,15 @@ timeout 90
 
 label l0
 	menu label Linux kernel 5.10.66-kdev
-	linux vmlinuz-5.10.66-kdev
-	initrd initrd.img-5.10.66-kdev
+	linux official-Image
+	initrd initrd.img-5.10.66
 	fdt /dtb/decenta_rk3588.dtb
 	append root=/dev/mmcblk0p3 rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory net.ifnames=0 biosdevname=0 level=10 loglevel=10 selinux=0 crashkernel=384M-:128M systemd.mask=systemd-growfs@-.service rockchip.dmc_freq=528000 video=HDMI-A-1:1920x1080@60
 
 label l0r
 	menu label Linux kernel 5.10.66-kdev (rescue target)
-	linux vmlinuz-5.10.66-kdev
-	initrd initrd.img-5.10.66-kdev
+	linux official-Image
+	initrd initrd.img-5.10.66
 	fdt /dtb/decenta_rk3588.dtb
 	append root=/dev/mmcblk0p3 rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory net.ifnames=0 biosdevname=0 level=10 loglevel=10 selinux=0 crashkernel=384M-:128M single
 
