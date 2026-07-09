@@ -29,13 +29,13 @@
 
 1. official_5.10.66 (official kernel 5.10.66)
    * Image
-   * rk3588-owl-ai-box-plus-v10.dtb
+   * decenta_rk3588.dtb
    * config-5.10.66-kdev
    * System.map-5.10.66-kdev
    * kos.tar.gz
 2. ophub_6.6.y (ophub kernel 6.6.y)
    * Image
-   * rk3588-owl-ai-box-plus-v10.dtb
+   * decenta_rk3588.dtb
    * config-6.6.y-kdev
    * System.map-6.6.y-kdev
    * kos.tar.gz
@@ -46,6 +46,15 @@
    * decenta_5.10.66_${set_rootfs}
 2. ophub_6.6.y (ophub kernel 6.6.y)
    * decenta_6.6.y_${set_rootfs}
+
+## defconfig
+
+decenta_rk3588_defconfig
+
+## dtb
+
+decenta_rk3588.dtb
+
 
 
 
