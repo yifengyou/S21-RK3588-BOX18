@@ -48,7 +48,7 @@ mkdir -p ${WORKDIR}/release
 #                        build uboot                                       #
 #==========================================================================#
 cd ${WORKDIR}/
-git clone https://github.com/yifengyou/S21-RK3588-BOX18-uboot u-boot.git
+git clone https://github.com/rockchip-linux/u-boot.git -b next-dev u-boot.git
 cd u-boot.git
 ls -alh
 
@@ -71,97 +71,20 @@ md5sum ${WORKDIR}/release/uboot.img
 #                        build kernel                                      #
 #==========================================================================#
 cd ${WORKDIR}
-git clone https://github.com/yifengyou/S21-RK3588-BOX18-kernel kernel.git
-cd kernel.git
-ls -alh
 
-# apply patch
-if ls "${WORKDIR}/official-kernel/"*.patch >/dev/null 2>&1; then
-  git config --global user.name yifengyou
-  git config --global user.email 842056007@qq.com
-  git am ${WORKDIR}/official-kernel/*.patch
-fi
+# copy official kernel 5.10.66 image
+cp ${WORKDIR}/firmware/official-android12/boot-unpack/kernel ${WORKDIR}/release/official-Image
 
-if [ -d ${WORKDIR}/official-kernel ]; then
-  ls -alh ${WORKDIR}/official-kernel/
-  cp -a ${WORKDIR}/official-kernel/* .
-  ls -alh
-fi
-
-# build kernel Image
-make ARCH=arm64 \
-  CROSS_COMPILE=aarch64-linux-gnu- \
-  KBUILD_BUILD_USER="builder" \
-  KBUILD_BUILD_HOST="kdevbuilder" \
-  LOCALVERSION=-kdev \
-  rockchip_linux_defconfig
-
-make ARCH=arm64 \
-  CROSS_COMPILE=aarch64-linux-gnu- \
-  KBUILD_BUILD_USER="builder" \
-  KBUILD_BUILD_HOST="kdevbuilder" \
-  LOCALVERSION=-kdev \
-  olddefconfig
-
-# check kver
-KVER=$(make LOCALVERSION=-kdev kernelrelease)
-KVER="${KVER/kdev*/kdev}"
-if [[ "$KVER" != *kdev ]]; then
-  echo "ERROR: KVER does not end with 'kdev'"
-  exit 1
-fi
-echo "KVER: ${KVER}"
-
-make ARCH=arm64 \
-  CROSS_COMPILE=aarch64-linux-gnu- \
-  KBUILD_BUILD_USER="builder" \
-  KBUILD_BUILD_HOST="kdevbuilder" \
-  LOCALVERSION=-kdev \
-   -j$(nproc)
-
-make ARCH=arm64 \
-  CROSS_COMPILE=aarch64-linux-gnu- \
-  KBUILD_BUILD_USER="builder" \
-  KBUILD_BUILD_HOST="kdevbuilder" \
-  LOCALVERSION=-kdev \
-  modules -j$(nproc)
-
-make ARCH=arm64 \
-  CROSS_COMPILE=aarch64-linux-gnu- \
-  KBUILD_BUILD_USER="builder" \
-  KBUILD_BUILD_HOST="kdevbuilder" \
-  LOCALVERSION=-kdev \
-  INSTALL_MOD_PATH=$(pwd)/kos \
-  modules_install
-
-ls -alh arch/arm64/boot/dts/rockchip/decenta_rk3588.dtb
-
-# release kernel image
-ls -alh arch/arm64/boot/Image
-md5sum arch/arm64/boot/Image
-cp -a arch/arm64/boot/Image ${WORKDIR}/release/
-
-# release dtb
-ls -alh arch/arm64/boot/dts/rockchip/decenta_rk3588.dtb
-md5sum arch/arm64/boot/dts/rockchip/decenta_rk3588.dtb
-cp -a arch/arm64/boot/dts/rockchip/decenta_rk3588.dtb ${WORKDIR}/release/
+# copy official dtb
+cp ${WORKDIR}/firmware/official-android12/boot-unpack/dtb ${WORKDIR}/release/decenta_rk3588.dtb
 
 # release config
-cp .config ${WORKDIR}/release/config-5.10.66-kdev
-ls -alh ${WORKDIR}/release/config-5.10.66-kdev
-md5sum ${WORKDIR}/release/config-5.10.66-kdev
-
-# release system map
-cp System.map ${WORKDIR}/release/System.map-5.10.66-kdev
-ls -alh ${WORKDIR}/release/System.map-5.10.66-kdev
-md5sum ${WORKDIR}/release/System.map-5.10.66-kdev
+cp ${WORKDIR}/firmware/official-android12/boot-unpack/config ${WORKDIR}/release/config-5.10.66
 
 # release kernel modules
-if [ -d kos/lib/modules ]; then
-  find kos -name "*.ko"
-  ls -alh kos/lib/modules/
-  tar -zcvf ${WORKDIR}/release/kos.tar.gz kos
-fi
+mkdir kos
+find ${WORKDIR}/firmware/official-android12/ -name "*.ko" |xargs -i cp -a {} kos/
+tar -zcvf ${WORKDIR}/release/kos.tar.gz kos
 
 ls -alh ${WORKDIR}/release/
 echo "Build completed successfully!"

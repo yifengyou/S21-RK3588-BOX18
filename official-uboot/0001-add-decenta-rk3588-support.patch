@@ -1,0 +1,24 @@
+From 84bc0f0b80e10ae2f7ad51ad2d98e7560c04edb2 Mon Sep 17 00:00:00 2001
+From: yifengyou <842056007@qq.com>
+Date: Thu, 9 Jul 2026 22:01:40 +0800
+Subject: [PATCH] add decenta rk3588 support
+
+Signed-off-by: yifengyou <842056007@qq.com>
+
+diff --git a/include/configs/evb_rk3588.h b/include/configs/evb_rk3588.h
+index 6685bb5a44..efb44f9a28 100644
+--- a/include/configs/evb_rk3588.h
++++ b/include/configs/evb_rk3588.h
+@@ -20,7 +20,8 @@
+ #define CONFIG_SYS_MMC_ENV_DEV		0
+ 
+ #undef CONFIG_BOOTCOMMAND
+-#define CONFIG_BOOTCOMMAND RKIMG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND "sysboot mmc 0:2 any 0x00500000 extlinux.conf"
++
+ 
+ #endif
+ #endif
+-- 
+2.47.3
+
