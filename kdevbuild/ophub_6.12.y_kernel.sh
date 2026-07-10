@@ -39,27 +39,22 @@ mkdir -p ${WORKDIR}/release
 #                        build uboot                                       #
 #==========================================================================#
 cd ${WORKDIR}/
-git clone -b stable-5.10-rock5 https://github.com/radxa/u-boot.git u-boot.git
+git clone https://github.com/rockchip-linux/u-boot.git -b next-dev u-boot.git
 cd u-boot.git
 ls -alh
 
 # apply patch
-if ls ${WORKDIR}/radxa-uboot/*.patch >/dev/null 2>&1; then
+if ls "${WORKDIR}/official-uboot/"*.patch >/dev/null 2>&1; then
   git config --global user.name yifengyou
   git config --global user.email 842056007@qq.com
-  git am ${WORKDIR}/radxa-uboot/*.patch
+  git am ${WORKDIR}/official-uboot/*.patch
 fi
 
-tool=$(which aarch64-linux-gnu-gcc)
-export CROSS_COMPILE_ARM64="${tool%gcc}"
-echo "using gcc: [${CROSS_COMPILE_ARM64}]"
+# build uboot.img
+chmod +x make.sh
+./make.sh rk3588 --burn-key-hash CROSS_COMPILE=aarch64-linux-gnu-
 
-rm -rf spl/u-boot-spl*
-make CROSS_COMPILE=${CROSS_COMPILE_ARM64} rockchip-rk3588_defconfig
-make CROSS_COMPILE=${CROSS_COMPILE_ARM64} -j$(nproc)
-./make.sh rk3588
 mv uboot.img ${WORKDIR}/release/uboot.img
-
 ls -alh ${WORKDIR}/release/uboot.img
 md5sum ${WORKDIR}/release/uboot.img
 
