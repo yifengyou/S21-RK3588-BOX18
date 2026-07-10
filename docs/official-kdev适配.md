@@ -110,9 +110,64 @@ root@armbian:~#
 
 
 
+## gpu适配
+
+```shell
+root@armbian:/lib/modules/5.10.66# dmesg |grep -i gpu
+[   10.533051] vdd_gpu_s0: supplied by vcc5v0_sys
+[   10.538120] vdd_gpu_mem_s0: supplied by vcc5v0_sys
+[   11.404899] mali fb000000.gpu: Kernel DDK version g11p0-01eac0
+[   11.406335] mali fb000000.gpu: Failed to get gpu_leakage
+[   11.408456] mali fb000000.gpu: pvtm=922
+[   11.408877] mali fb000000.gpu: pvtm-volt-sel=4
+[   11.410005] mali fb000000.gpu: avs=0
+[   11.411873] W : [File] : drivers/gpu/arm/bifrost/platform/rk/mali_kbase_config_rk.c; [Line] : 132; [Func] : kbase_platform_rk_init(); power-off-delay-ms not available.
+[   11.418931] mali fb000000.gpu: r0p0 status 5 is unknown; treating as r0p0 status 0
+[   11.421559] mali fb000000.gpu: GPU identified as 0x7 arch 10.8.6 r0p0 status 0
+[   11.422850] mali fb000000.gpu: No priority control manager is configured
+[   11.426430] mali fb000000.gpu: No memory group manager is configured
+[   11.427608] mali fb000000.gpu: Protected memory allocator not available
+[   11.434756] mali fb000000.gpu: l=0 h=2147483647 hyst=5000 l_limit=0 h_limit=0 h_table=0
+[   11.438626] mali fb000000.gpu: Probed as mali0
+[   12.606336] I : [File] : drivers/gpu/arm/mali400/mali/linux/mali_kernel_linux.c; [Line] : 409; [Func] : mali_module_init(); svn_rev_string_from_arm of this mali_ko is '', rk_ko_ver is '5', built at '18:00:09', on 'Apr  1 2022'.
+root@armbian:/lib/modules/5.10.66# 
+root@armbian:/lib/modules/5.10.66# 
+```
 
 
+## npu适配
 
+```shell
+root@armbian:/lib/modules/5.10.66# dmesg |grep -i npu
+[   10.534001] vdd_npu_s0: supplied by vcc5v0_sys
+[   10.539232] vdd_npu_mem_s0: supplied by vcc5v0_sys
+[   10.611423] rk_gmac-dwmac fe1b0000.ethernet: clock input or output? (output).
+[   11.169295] input: febd0030.pwm as /devices/platform/febd0030.pwm/input/input0
+[   11.173662] input: rk805 pwrkey as /devices/platform/feb20000.spi/spi_master/spi2/spi2.0/rk805-pwrkey.2.auto/input/input1
+[   11.318252]     input device check on
+[   11.546855] input: adc-keys as /devices/platform/adc-keys/input/input2
+[   11.557807] input: rockchip,dp1 rockchip,dp1 as /devices/platform/dp1-sound/sound/card1/input3
+[   11.560827] input: rockchip-hdmi0 rockchip-hdmi0 as /devices/platform/hdmi0-sound/sound/card2/input4
+[   11.564048] input: rockchip-hdmi1 rockchip-hdmi1 as /devices/platform/hdmi1-sound/sound/card3/input5
+[   12.495131] input: PixA? USB Optical Mouse as /devices/platform/fc880000.usb/usb8/8-1/8-1.2/8-1.2:1.0/0003:093A:2510.0001/input/input6
+[   12.497335] hid-generic 0003:093A:2510.0001: input,hidraw0: USB HID v1.11 Mouse [PixA? USB Optical Mouse] on usb-fc880000.usb-1.2/input0
+[   12.560795] input: rk-headset as /devices/platform/rk-headset/input/input7
+[   12.563706] RKNPU fdab0000.npu: Adding to iommu group 0
+[   12.565767] RKNPU fdab0000.npu: RKNPU: rknpu iommu is enabled, using iommu mode
+[   12.568289] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdab0000-0xfdabffff]
+[   12.569891] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdac0000-0xfdacffff]
+[   12.571389] RKNPU fdab0000.npu: can't request region for resource [mem 0xfdad0000-0xfdadffff]
+[   12.574149] [drm] Initialized rknpu 0.6.4 20211227 for fdab0000.npu on minor 1
+[   12.578238] RKNPU fdab0000.npu: Failed to get npu_leakage
+[   12.580514] RKNPU fdab0000.npu: pvtm=899
+[   12.581162] RKNPU fdab0000.npu: pvtm-volt-sel=3
+[   12.584642] RKNPU fdab0000.npu: avs=0
+[   12.585603] RKNPU fdab0000.npu: l=0 h=2147483647 hyst=5000 l_limit=0 h_limit=0 h_table=0
+[   12.587164] RKNPU fdab0000.npu: failed to find power_model node
+[   12.587993] RKNPU fdab0000.npu: RKNPU: failed to initialize power model
+[   12.589230] RKNPU fdab0000.npu: RKNPU: failed to get dynamic-coefficient
+root@armbian:/lib/modules/5.10.66# 
+```
 
 
 
