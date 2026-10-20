@@ -22,28 +22,43 @@
 
 ---
 
-## 免责声明
-
-* 按原样提供：镜像不作任何保证，使用风险自负
-* 无官方关联：与无官方关系、无任何商业往来
-* 安全提示：请及时更新补丁、修改默认密码、配置防火墙
-
 ## 目录
 
 * [硬件规格](docs/硬件规格.md)
-* [开发板信息](docs/开发板信息.md)
-* [官方固件](docs/官方固件.md)
-* [设备树分析](docs/设备树分析.md)
-* [official-kdev适配](docs/official-kdev适配.md)
-* [third-kdev适配](docs/third-kdev适配.md)
-* [rockchip-linux仓库develop-6.1内核适配](docs/rockchip-linux仓库develop-6.1内核适配.md)
-* [rockchip-linux仓库develop-6.6内核适配](docs/rockchip-linux仓库develop-6.6内核适配.md)
-
+* [固件列表](docs/固件列表.md)
+* [刷机指引](docs/rom_update_guide.md)
+    * [ophub armbian](docs/刷机指引/ophub_armbian.md)
+    * [ophub 飞牛](docs/刷机指引/ophub_fnos.md)
+    * [ophub openwrt](docs/刷机指引/ophub_openwrt.md)
+    * [android12固件](docs/刷机指引/android12.md)
+    * [android13固件](docs/刷机指引/android13.md)
+    * [android14固件](docs/刷机指引/android14.md)
+* [适配记录](docs/适配记录.md)
+    * [uboot v2017](docs/适配记录/uboot2017.md)
+    * [uboot v2026](docs/适配记录/uboot2026.md)
+    * [recovery](docs/适配记录/recovery.md)
+    * [ophub 6.18.y](docs/适配记录/ophub_6.18.y.md)
+    * [ophub 6.6.y](docs/适配记录/ophub_6.6.y.md)
+    * [ophub 6.1.y](docs/适配记录/ophub_6.1.y.md)
+    * [openanolis devel-6.6](docs/适配记录/openanolis_devel-6.6.md)
+    * [opencloudos devel-6.6](docs/适配记录/opencloudos_devel-6.6.md)
+    * [rockchip-linux develop-6.12](docs/适配记录/rockchip-linux_develop-6.12.md)
+    * [linux-stable](docs/适配记录/linux-stable.md)
+    * [android12适配](docs/适配记录/android/android12.md)
+    * [android13适配](docs/适配记录/android/android13.md)
+    * [android14适配](docs/适配记录/android/android14.md)
+    * [edk2 uefi适配](docs/适配记录/edk2_uefi.md)
+* [外壳机箱](docs/外壳机箱.md)
+* [需求清单](docs/需求清单.md)
 
 ---
 
 
-## debug调试口
+## maskrom短接点、TTL
+
+* debug调试口
+
+![](./images/50225839724800.png)
 
 ![](./images/8081092886600.png)
 
@@ -56,17 +71,47 @@
 | 校验位 (Parity) | `None` | 默认无校验（N） |
 | 流控 (Flow Control) | `None` | 默认禁用硬件流控（RTS/CTS），除非特别配置 |
 
----
-
-## maskrom短接端
+* maskrom短接端
 
 ![](./images/9481605037800.png)
 
-
 跳线帽移动到另一侧即可进入maskrom
+
+---
+
+## 适配进度
+
+| 仓库地址 | 分支 | 适配进度 | 备注 |
+| :--- | :--- | :--- | :--- |
+| `https://github.com/u-boot/u-boot` | `main` | ✅ 已完成 | 初步完成 |
+
+
+| 仓库地址 | 分支 | 适配进度 | 备注 |
+| :--- | :--- | :--- | :--- |
+| `https://mirrors.cernet.edu.cn/linux-stable.git` | `master` | ✅ 已完成 | 初步完成, 7.3内核 |
+| `https://github.com/ophub/linux-6.18.y.git` | `ophub_6.18.y` | ✅ 已完成 | 初步完成 |
+| `https://github.com/rockchip-linux/kernel.git` | `develop-6.12` | ✅ 已完成 | 初步完成 |
+| `https://github.com/rockchip-linux/kernel.git` | `develop-6.6` | ✅ 已完成 | 初步完成 |
+| `https://github.com/rockchip-linux/kernel.git` | `develop-6.1` | ✅ 已完成 | 初步完成 |
+| `https://gitee.com/anolis/cloud-kernel` | `devel-6.6` | ✅ 已完成 | 初步完成 |
+| `https://atomgit.com/openeuler/kernel` | `OLK-6.6` | ✅ 已完成 | 初步完成 |
+| `https://gitee.com/OpenCloudOS/OpenCloudOS-Kernel` | `linux-6.6` | ✅ 已完成 | 初步完成 |
+| `https://github.com/ophub/ophub_6.1.y` | `master` | ✅ 已完成 | 初步完成 |
+| `https://github.com/ophub/ophub_6.6.y` | `master` | ✅ 已完成 | 初步完成 |
+| `https://github.com/ophub/ophub_6.12.y` | `master` | ✅ 已完成 | 初步完成 |
 
 
 ---
+
+## 免责申明
+
+- 本仓库所提供的内容均基于公开、合法渠道整理，仅供用户参考与学习之用。
+- 严格遵守国家相关法律法规，尊重并保护个人隐私及知识产权。
+- 如您认为相关内容涉及您的隐私、版权或其他合法权益，请及时联系，将依法核实并在必要时予以删除或下架。
+- 对于因使用或无法使用本网站/平台内容所引发的任何直接或间接损失，不承担任何法律责任。
+- 用户在使用过程中应自行判断信息的适用性，并承担相应风险。
+
+
 
 
 
